@@ -1,0 +1,6 @@
+obj-y += thread_led.o
+obj-y += thread_key.o
+obj-y += thread_mqtt.o
+obj-y += thread_usart_rceive.o
+obj-y += thread_usart_send.o
+
