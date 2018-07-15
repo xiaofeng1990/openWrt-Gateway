@@ -1,10 +1,4 @@
----- localtime Matches (9 in 3 files) ----
-my_config.h (linux-include\mysql) line 536 : /* Define to 1 if you have the `localtime_r' function. */
-my_pthread.h (linux-include\mysql) line 123 : struct tm *localtime_r(const time_t *timep,struct tm *tmp);
-my_pthread.h (linux-include\mysql) line 330 : struct tm *localtime_r(const time_t *clock, struct tm *res);
-time.h (linux-include) line 244 : extern struct tm *localtime (__const time_t *__timer) __THROW;
-time.h (linux-include) line 255 : extern struct tm *localtime_r (__const time_t *__restrict __timer,
-time.h (linux-include) line 264 : /* Equivalent to `asctime (localtime (timer))'.  */
-time.h (linux-include) line 276 : /* Equivalent to `asctime_r (localtime_r (timer, *TMP*), buf)'.  */
-time.h (linux-include) line 282 : /* Defined in localtime.c.  */
-time.h (linux-include) line 320 :    localtime package.  These are included only for compatibility.  */
+---- MQ_SOCKET_SEND Matches (3 in 1 files) ----
+gw_ipc.c (ipc) line 7 : #define MQ_SOCKET_SEND	"/mq_socket_send"
+ipc_init in gw_ipc.c (ipc) : 	gatewayInfo->mqueue.mqid_report = mq_open(MQ_SOCKET_SEND, O_CREAT | O_RDWR, 0666, NULL);
+ipc_init in gw_ipc.c (ipc) : 	gatewayInfo->mqueue.mqid_device = mq_open(MQ_SOCKET_SEND, O_CREAT | O_RDWR, 0666, NULL);

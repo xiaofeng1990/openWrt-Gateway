@@ -11,7 +11,10 @@
 #define PASSWD  "123"
 #define DB_NAME "test"
 
-int mysql_connect(MYSQL *mysql);
+/* 声明tGatewayInfo结构体，取消 declared inside parameter list 警告*/
+struct tGatewayInfo;
+
+int mysql_connect(struct tGatewayInfo *gatewayInfo);
 void mysql_disconnect(MYSQL *mysql);
 int mysql_handle_cmd(MYSQL *mysql, char *cmd, int len);
 int mysql_find_cmd(MYSQL *mysql, MYSQL_RES *res, char *cmd, int len);

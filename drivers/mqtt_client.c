@@ -15,6 +15,7 @@
 #include "tcp_client.h"
 #include "MQTTPacket.h" 
 #include "debug.h"
+#include "cJSON.h"
 
 
 #define MQTT_PACKET_SIZE_MAX  2048
@@ -81,13 +82,15 @@ int mqtt_close(void)
  *
  * @return  0：成功      -1：失败
  *****************************************************************************/
-int mqtt_connect(void)
+int mqtt_connect(struct tGatewayInfo *gatewayInfo)
 {
 	uint32_t len;
-	struct hostent *hptr;
-	char ipbuf[32] = "";
+	int ret = 0;
 	
-	int dns_number = 0;
+	//struct hostent *hptr;
+	//char ipbuf[32] = "";
+	
+	//int dns_number = 0;
 	uint8_t buf[MQTT_PACKET_SIZE_MAX];
 	MQTTPacket_connectData	data = MQTTPacket_connectData_initializer;
 	#if 0
@@ -114,21 +117,27 @@ int mqtt_connect(void)
 	#endif	
 	
 	/* tcp连接 */
-	if(tcp_client_connect(SOCK_TARGET_HOST, MQTT_PORT, SOCKET_MQTT)!=0)
+	ret = tcp_client_connect(SOCK_TARGET_HOST, MQTT_PORT, SOCKET_MQTT);
+	if(ret==0)
+	{
+		/* tcp连接成功后获取网卡信息 */
+		tcp_get_eth_info(gatewayInfo, SOCKET_MQTT);
+	}
+	else
 		return -1;
 	
 	//---------------mqtt连接信息------------------------
 	data.cleansession = 1;							//0:订阅客户机掉线，保存为其推送的消息,1：
 	data.MQTTVersion  = 4;  							//MQTT版本
 	data.clientID.cstring  = "2e266e 2a";			//客户端ID
-	data.keepAliveInterval = MQTT_PING_TIMER+10;	//mqtt服务器保持和客户端的连接时间 0表示一直连接
+	data.keepAliveInterval = 0;//MQTT_PING_TIMER+10;	//mqtt服务器保持和客户端的连接时间 0表示一直连接
 
 	//	//---------------用户名，密码-------------------------
 	//data.username.cstring = "admin";
 	//data.password.cstring = "public";
 
 	//---------------遗嘱，客户端非正常关闭服务器发送遗嘱消息-------------------------
-	data.willFlag = 1;  						//遗嘱标志
+	data.willFlag = 1;  					//遗嘱标志
 	data.will.qos = 1;						//遗嘱等级
 	data.will.retained = 0;					//服务器是否保留遗嘱消息
 		
@@ -136,7 +145,7 @@ int mqtt_connect(void)
 	data.will.message.cstring   = "abcd";		//遗嘱负载
 
 	len = MQTTSerialize_connect(buf, MQTT_PACKET_SIZE_MAX, &data);	/* 整合发送数据流，将结构体数据整合成数组*/
-	if (mqtt_sendPacketBuffer(buf, len) >0)
+	if(mqtt_sendPacketBuffer(buf, len) >0)
 	{
 		/* 等待服务器的连接回复应答 */
 		if (MQTTPacket_read(buf, MQTT_PACKET_SIZE_MAX, &mqtt_getdata) == CONNACK)

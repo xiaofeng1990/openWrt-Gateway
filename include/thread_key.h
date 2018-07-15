@@ -4,7 +4,7 @@
 #include "gw_config.h"
 
 void *key_thread_f(void *parameter);
-void key_thread_init(struct tGatewayInfo *gatewayInfo);
+int key_thread_init(struct tGatewayInfo *gatewayInfo);
 void key_thread_wait(struct tGatewayInfo *gatewayInfo);
 
 #endif /* __THREAD_KEY_H_ */

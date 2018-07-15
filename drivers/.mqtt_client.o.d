@@ -68,6 +68,21 @@ mqtt_client.o: mqtt_client.c \
  /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/lib/gcc/mipsel-openwrt-linux-uclibc/4.8.3/include/stdarg.h \
  /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/bits/stdio_lim.h \
  /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/strings.h \
+ /mnt/hgfs/work/openwrt-gateway/include/gw_config.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mqueue.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/fcntl.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/bits/fcntl.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/bits/siginfo.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/bits/mqueue.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mysql/mysql.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mysql/mysql_version.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mysql/mysql_com.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mysql/mysql_time.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mysql/my_list.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mysql/typelib.h \
+ /work/openwrt/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/include/mysql/my_alloc.h \
+ /mnt/hgfs/work/openwrt-gateway/include/mysql_client.h \
+ /mnt/hgfs/work/openwrt-gateway/include/cJSON.h \
  /mnt/hgfs/work/openwrt-gateway/include/tcp_client.h \
  /mnt/hgfs/work/openwrt-gateway/include/MQTTPacket.h \
  /mnt/hgfs/work/openwrt-gateway/include/MQTTConnect.h \
@@ -77,4 +92,5 @@ mqtt_client.o: mqtt_client.c \
  /mnt/hgfs/work/openwrt-gateway/include/MQTTFormat.h \
  /mnt/hgfs/work/openwrt-gateway/include/StackTrace.h \
  /mnt/hgfs/work/openwrt-gateway/include/MQTTPacket.h \
- /mnt/hgfs/work/openwrt-gateway/include/debug.h
+ /mnt/hgfs/work/openwrt-gateway/include/debug.h \
+ /mnt/hgfs/work/openwrt-gateway/include/cJSON.h

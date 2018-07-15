@@ -1,19 +1,29 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <strings.h>    
-#include <unistd.h>    
+#include <strings.h> 
+#include <net/if.h>
+
+#include <unistd.h> 
+#include <sys/ioctl.h>
+#include <arpa/inet.h>
+#include <sys/stat.h>
+
 #include <sys/types.h>    
-#include <sys/socket.h>    
+#include <sys/socket.h>  
+#include <fcntl.h>
+
 //#include <linux/in.h>    
 #include <stdlib.h>    
 #include <memory.h>    
 #include <arpa/inet.h>    
 #include <netinet/in.h>    
-	
+#include <net/route.h>
+#include <net/if_arp.h>
 #include <signal.h> //添加信号处理  防止向已断开的连接通信    
 
 #include "tcp_client.h"
 #include "debug.h"
+#include "gw_config.h"
 
 
 /* 
@@ -95,8 +105,66 @@ int tcp_client_close(int socketNum)
 	return close(tcp_socket[socketNum]);
 }
 
-int get_socket_number(int number)
+int tcp_get_socket_fd(int number)
 {
 	return tcp_socket[number];
-}	
+}
 
+/******************************************************************************
+ * @fn      tcp_get_eth_info
+ *
+ * @brief   获得网卡信息，ip地址，mac地址
+ *
+ * @param   gatewayInfo：网关信息结构体
+ *			fd_num: socket句柄编号		
+ *	
+ * @return  -1 error  0 success
+ *****************************************************************************/
+
+int tcp_get_eth_info(struct tGatewayInfo *gatewayInfo, int fd_num)
+{
+	struct ifreq ifr;
+	struct sockaddr_in *sin;
+	
+	memset(&ifr, 0, sizeof(ifr));
+	strcpy(ifr.ifr_name, EIT_NAME);
+	memset(&sin, 0, sizeof(sin));
+
+
+	/* 获得网关IP */
+	if(ioctl(tcp_socket[fd_num], SIOCGIFADDR, &ifr) != -1)
+	{
+		sin = (struct sockaddr_in *)&ifr.ifr_addr;
+		strcpy(gatewayInfo->network.local_ip, inet_ntoa(sin->sin_addr));
+		DEBUG_LOG("IP address is %s\n", gatewayInfo->network.local_ip);	
+	}
+	else
+	{
+		DEBUG_LOG("**********get ip error!!!**********\n");
+		goto err1;
+	}
+
+	/* 获得网关mac地址 */
+	if(ioctl(tcp_socket[fd_num], SIOCGIFHWADDR, &ifr) != -1)
+	{
+		sin = (struct sockaddr_in *)&ifr.ifr_hwaddr;
+		sprintf(gatewayInfo->network.local_mac, "%02x%02x%02x%02x%02x%02x",
+		(unsigned char)ifr.ifr_hwaddr.sa_data[0],
+		(unsigned char)ifr.ifr_hwaddr.sa_data[1],
+		(unsigned char)ifr.ifr_hwaddr.sa_data[2],
+		(unsigned char)ifr.ifr_hwaddr.sa_data[3],
+		(unsigned char)ifr.ifr_hwaddr.sa_data[4],
+		(unsigned char)ifr.ifr_hwaddr.sa_data[5]);
+		DEBUG_LOG("Mac address is %s\n", gatewayInfo->network.local_mac);
+	}
+	else
+	{
+		DEBUG_LOG("**********get mac error!!!**********\n");
+		goto err1;
+	}
+
+	return 0;
+	
+err1:
+ return -1;
+}

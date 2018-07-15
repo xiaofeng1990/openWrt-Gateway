@@ -24,16 +24,18 @@ void *led_thread_f(void *parameter)
 	pthread_exit(0);
 }
 
-void led_thread_init(struct tGatewayInfo *gatewayInfo)
+int led_thread_init(struct tGatewayInfo *gatewayInfo)
 {
 	int temp;
-	/*创建线程*/
 	
-	if((temp = pthread_create(&gatewayInfo->thread.led, NULL, led_thread_f, (void *)gatewayInfo)) != 0)     
+	/*创建线程*/
+	temp = pthread_create(&gatewayInfo->thread.led, NULL, led_thread_f, (void *)gatewayInfo);
+	if(temp != 0)     
 		DEBUG_LOG("led thread 1 is err!\n");
 	else
 		DEBUG_LOG("led thread 1 is ok\n");
 
+	return temp;
 }
 
 void led_thread_wait(struct tGatewayInfo *gatewayInfo)
@@ -42,7 +44,7 @@ void led_thread_wait(struct tGatewayInfo *gatewayInfo)
 	if(gatewayInfo->thread.led !=0)
 	{ 
 		pthread_join(gatewayInfo->thread.led,NULL);
-		DEBUG_LOG("led thread is over/n");
+		DEBUG_LOG("$$$$$$$$$$$$$$$$ led thread is over $$$$$$$$$$$$$$$$/n");
 	}
 }
 

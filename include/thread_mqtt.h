@@ -4,7 +4,7 @@
 #include "gw_config.h"
 
 void *mqtt_thread_f(void *parameter);
-void mqtt_thread_init(struct tGatewayInfo *gatewayInfo);
+int mqtt_thread_init(struct tGatewayInfo *gatewayInfo);
 void mqtt_thread_wait(struct tGatewayInfo *gatewayInfo);
 
 

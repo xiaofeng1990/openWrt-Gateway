@@ -1,6 +1,7 @@
 #include "debug.h"
 #include "mysql_client.h"
 
+
 /**
   * @fn     mysql_connect
   * @brief  先初始化数据库句柄，并连接到本地数据库，
@@ -71,10 +72,10 @@ int mysql_handle_cmd(MYSQL *mysql, char *cmd, int len)
   */
 int mysql_find_cmd(MYSQL *mysql, MYSQL_RES *res, char *cmd, int len)
 {  
-	int i;					
-	int fields; 			//一行中有多少个字段 
-    int rows;	            //总共有多少行数据
-    char *query ="show databases";
+	//int i;					
+	//int fields; 			//一行中有多少个字段 
+    //int rows;	            //总共有多少行数据
+    //char *query ="show databases";
 	
 	if(mysql_real_query(mysql, cmd, len)) 
 	{  

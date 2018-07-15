@@ -226,7 +226,7 @@ struct tDeviceInfo *dm_find_dev_by_mac(struct tDeviceInfo *dev_list, uint8_t *ma
 
 
 /* 上报服务器设备列表 */
-int dm_report_dev_link_to_server
+int dm_report_dev_link_to_server()
 {
 	
 }

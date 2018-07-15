@@ -17,21 +17,24 @@ void *key_thread_f(void *parameter)
 	//struct tGatewayInfo *gatewayInfo = (struct tGatewayInfo *)parameter;
 	while(1)
 	{
-		printf("key thread is run\n");
+		DEBUG_LOG("key thread is run\n");
 		sleep(5);
 	}
 	pthread_exit(0);
 }
 
-void key_thread_init(struct tGatewayInfo *gatewayInfo)
+int key_thread_init(struct tGatewayInfo *gatewayInfo)
 {
 	int temp;
+	
 	/*创建线程*/
-	if((temp = pthread_create(&gatewayInfo->thread.key, NULL, key_thread_f, (void *)gatewayInfo)) != 0)     
+	temp = pthread_create(&gatewayInfo->thread.key, NULL, key_thread_f, (void *)gatewayInfo);
+	if(temp != 0)     
 		DEBUG_LOG("key thread is err!\n");
 	else
 		DEBUG_LOG("key thread is ok\n");
-
+		
+	return temp;
 }
 
 void key_thread_wait(struct tGatewayInfo *gatewayInfo)
@@ -40,7 +43,7 @@ void key_thread_wait(struct tGatewayInfo *gatewayInfo)
 	if(gatewayInfo->thread.key !=0)
 	{ 
 		pthread_join(gatewayInfo->thread.key,NULL);
-		DEBUG_LOG("key thread is over/n");
+		DEBUG_LOG("$$$$$$$$$$$$$$$$ key thread is over $$$$$$$$$$$$$$$$\n");
 	}
 }
 

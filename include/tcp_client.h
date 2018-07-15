@@ -8,6 +8,7 @@
 #include <stdio.h> 
 #include <stdint.h>
 #include <strings.h>    
+#include "gw_config.h"
 
 /* 
  *允许用户使用三个tcp连接
@@ -29,6 +30,7 @@ int tcp_client_connect(char* ip, int port,int socketNum);
 int tcp_client_send(uint8_t * SendBuff, int lenght, int socketNum);
 int tcp_client_revc(uint8_t * buff, int lenght, int socketNum);
 int tcp_client_close(int socketNum);
-int get_socket_number(int number);
+int tcp_get_socket_fd(int number);
+int tcp_get_eth_info(struct tGatewayInfo *gatewayInfo, int fd_num);
 
 #endif	//_TCP_CLIENTH_

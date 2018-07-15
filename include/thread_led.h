@@ -4,7 +4,7 @@
 #include "gw_config.h"
 
 void *led_thread_f(void *parameter);
-void led_thread_init(struct tGatewayInfo *gatewayInfo);
+int led_thread_init(struct tGatewayInfo *gatewayInfo);
 void led_thread_wait(struct tGatewayInfo *gatewayInfo);
 
 #endif /* __THREAD_LED_H_ */

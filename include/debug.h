@@ -1,6 +1,6 @@
 
-#ifndef _DEBUG_H
-#define _DEBUG_H
+#ifndef __DEBUG_H_
+#define __DEBUG_H_
 
 #include <stdio.h>
  
@@ -14,6 +14,6 @@
 	#define DEBUG_LOG (printf("%s(%d)-<%s>: ", __FILE__, __LINE__, __FUNCTION__,), printf)  
 #else  
 	#define DEBUG_LOG  
-#endif //_DEBUG_H  
+#endif  
 
-#endif
+#endif	/*__DEBUG_H_*/ 
